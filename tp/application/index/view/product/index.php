@@ -14,8 +14,8 @@
 <div class="dropMask"></div>
 <div class="dragBtn"></div>
 
-<script src="script/index.js"></script>
-<script src="script/jquery-ui.min.js"></script>
+<script src="__static__script/index.js"></script>
+<script src="__static__script/jquery-ui.min.js"></script>
 <!-- 页面头部 -->
 <section>
   <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>产品列表</span> <a href="#" class="z-02"></a> </div>
@@ -24,7 +24,7 @@
 <div class="main">
   <div class="cre-tabs">
     <div class="tab-border"></div>
-    <a id="one1" onClick="setTab('one',1,4)" class="hover">产品期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,4)">产品状态</a> <span class="split-line ">|</span><a id="one3" onClick="setTab('one',3,4)">还款方式</a> <span class="split-line ">|</span><a id="one4" onClick="setTab('one',4,4)">分站区域</a> </div>
+    <a id="one1" onClick="setTab('one',1,3)" class="hover">产品期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,3)">产品状态</a> <span class="split-line ">|</span><a id="one3" onClick="setTab('one',3,3)">分站区域</a> </div>
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
     <ul class="term" type="month">
@@ -43,13 +43,6 @@
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_3" style="display:none">
-    <ul class="repayments" type="type">
-      <li>等额本息</li>
-      <li>按月付息，到期还本</li>
-      <li>一次性还款</li>
-    </ul>
-  </div>
-  <div class="invest_menuinfo" id="con_one_4" style="display:none">
     <ul class="term" type="city">
       <li>北京</li>
       <li>上海</li>
@@ -61,15 +54,17 @@
   </div>
   <div class="index-list-wrap">
     <!--车-->
-    <div class="index-pad"> <a class="index-list index-che" href="#">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
+  <?php foreach ($product as $k => $v) {?>
+    <div class="index-pad"> <a class="index-list index-che" href="{:url('product/desc')}?pid=<?=$v['product_id']?>">
+      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong><?=$v['product_cade']?></strong></span> <span class="fr tit-site"><i></i> <strong></strong> </span> </div>
       <div class="list-main">
-        <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>500.<em>00</em><i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per">57<i>%</i></span> </div>
+        <div class="main-l"> <span class="per"><?=$v['product_rate']*100?><i>%</i></span> <span class="add">A</span> </div>
+        <div class="main-m main-m-1"> <span><?=$v['product_need_money']?>元</span> </div>
+        <div class="main-m main-m-2"> <span class="day"><?php $time=$v['product_time']-time();echo date('d',$time);?>天</span> </div>
+        <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per"><?php if($v['product_need_money']==0){ echo 0;}else{ $num=$v['product_money']/$v['product_need_money'];$num1=sprintf('%.2f',$num);echo $num1*100;}?><i>%</i></span> </div>
       </div>
       </a> </div>
+    <?php }?>
     <!--房-->
     <div class="index-pad"> <a class="index-list index-fang" href="#">
       <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
@@ -78,26 +73,6 @@
         <div class="main-m main-m-1"> <span>80 <i>万</i></span> </div>
         <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
         <div class="main-r"> <span class="circle-gray"></span> <span class="val-txt">回款中</span> </div>
-      </div>
-      </a> </div>
-    <!--车-->
-    <div class="index-pad"> <a class="index-list index-che" href="#">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>40 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-blue circle-c100"></span> <span class="val-per">100<i>%</i></span> </div>
-      </div>
-      </a> </div>
-    <!--房-->
-    <div class="index-pad"> <a class="index-list index-fang" href="#">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>80 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"><span class="circle-blue circle-f13"></span> <span class="val-per">13<i>%</i></span> </div>
       </div>
       </a> </div>
     <!--end-->
@@ -124,9 +99,27 @@
       switch(type){
         case "month":
             var va=$(this).attr("month");
-            alert(va)
+            getproduct(type,va)
         break;
       }
     })
   })
+  function getproduct(type,va){
+    $.ajax({
+      type:"post",
+      url:"{:url('product/getinfo')}",
+      data:{
+        type:type,
+        va:va,
+      },
+      dataType:"json",
+      success:function(e){
+        if (e.error==1) {
+          
+        }else{
+          alert(e.msg)
+        }
+      }
+    })
+  }
 </script>

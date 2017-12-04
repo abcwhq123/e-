@@ -17,23 +17,7 @@
 <div class="dragBtn"></div>
 <div class="dropBox">
   <div class="dropSkin"></div>
-  <ul class="dropList">
-    <li class="nth-child_1"> <a href="index.html" class="dropIco"></a>
-      <p>首页</p>
-    </li>
-    <li class="nth-child_2"> <a href="list.html" class="dropIco"></a>
-      <p>投资</p>
-    </li>
-    <li class="nth-child_3"> <a href="" class="dropIco"></a>
-      <p>我的账户</p>
-    </li>
-    <li class="nth-child_4"> <a href="{:url('login/register')}" class="dropIco"></a>
-      <p>注册</p>
-    </li>
-    <li class="nth-child_5"> <a href="login.html" class="dropIco"></a>
-      <p>登录</p>
-    </li>
-  </ul>
+
 </div>
 <script src="script/jquery-ui.min.js"></script>
 <script src="script/index.js"></script>
@@ -102,7 +86,7 @@
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> 
   <a href="javascript:void(0)" class="nav_on" id="jx"><span></span>首页</a> 
-  <a href="{:url('index/lists')}" id="lc" class=""><span></span>理财</a> 
+  <a href="{:url('product/index')}" id="lc" class=""><span></span>理财</a> 
   <a href="{:url('index/index')}" id="jk" class=""><span></span>借款</a> 
   <a href="{:url('user/index')}" id="cf" class=""><span></span>我的账户</a> </nav><!--合作机构-->
 <div id="allmenu" style="display:none;">

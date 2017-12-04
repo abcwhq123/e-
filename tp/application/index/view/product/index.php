@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="format-detection" content="telephone=no,email=no,adress=no"/>
-<title>首页</title>
+<title>理财</title>
 <link rel="stylesheet" type="text/css" href="__static__css/common.css" />
 <script type="text/javascript" src="__static__script/jquery.js"></script>
 <script type="text/javascript" src="__static__script/column.js"></script>
@@ -13,65 +13,51 @@
 <!--浮动-->
 <div class="dropMask"></div>
 <div class="dragBtn"></div>
-<div class="dropBox">
-  <div class="dropSkin"></div>
-  <ul class="dropList">
-    <li class="nth-child_1"> <a href="#" class="dropIco"></a>
-      <p>首页</p>
-    </li>
-    <li class="nth-child_2"> <a href="#" class="dropIco"></a>
-      <p>投资</p>
-    </li>
-    <li class="nth-child_3"> <a href="#" class="dropIco"></a>
-      <p>个人中心</p>
-    </li>
-    <li class="nth-child_4"> <a href="#" class="dropIco"></a>
-      <p>注册</p>
-    </li>
-    <li class="nth-child_5"> <a href="#" class="dropIco"></a>
-      <p>登录</p>
-    </li>
-  </ul>
-</div>
+
 <script src="script/index.js"></script>
 <script src="script/jquery-ui.min.js"></script>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>项目列表</span> <a href="#" class="z-02"></a> </div>
+  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>产品列表</span> <a href="#" class="z-02"></a> </div>
 </section>
 <!-- 中间内容 -->
 <div class="main">
   <div class="cre-tabs">
     <div class="tab-border"></div>
-    <a id="one1" onClick="setTab('one',1,4)" class="hover">项目期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,4)">项目状态</a> <span class="split-line ">|</span><a id="one3" onClick="setTab('one',3,4)">还款方式</a> <span class="split-line ">|</span><a id="one4" onClick="setTab('one',4,4)">分站区域</a> </div>
+    <a id="one1" onClick="setTab('one',1,4)" class="hover">产品期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,4)">产品状态</a> <span class="split-line ">|</span><a id="one3" onClick="setTab('one',3,4)">还款方式</a> <span class="split-line ">|</span><a id="one4" onClick="setTab('one',4,4)">分站区域</a> </div>
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
-    <ul class="term">
-      <li><a href="#">3个月</a></li>
-      <li><a href="#">6个月</a></li>
-      <li><a href="#">一年</a></li>
-      <li><a href="#">一年以上</a></li>
+    <ul class="term" type="month">
+      <li>3个月</li>
+      <li>6个月</li>
+      <li>一年</li>
+      <li>一年以上</li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_2" style="display:none">
-    <ul class="term">
-      <li><a href="#">即将上线</a></li>
-      <li><a href="#">正在募集</a></li>
-      <li><a href="#">正在回款</a></li>
-      <li><a href="#">回款完毕</a></li>
+    <ul class="term" type="status">
+      <li>即将上线</li>
+      <li>正在募集</li>
+      <li>正在回款</li>
+      <li>回款完毕</li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_3" style="display:none">
-    <ul class="repayments">
-      <li><a href="#">等额本息</a></li>
-      <li><a href="#">按月付息，到期还本</a></li>
-      <li><a href="#">一次性还款</a></li>
+    <ul class="repayments" type="type">
+      <li>等额本息</li>
+      <li>按月付息，到期还本</li>
+      <li>一次性还款</li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_4" style="display:none">
-    <h2>分站区域</h2>
-    <div class="cityen"> <a href="#" class="on">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a></div>
-    <div class="cityname"><a href="#" class="on">安徽合肥</a></div>
+    <ul class="term" type="city">
+      <li>北京</li>
+      <li>上海</li>
+      <li>深圳</li>
+      <li>广州</li>
+    </ul>
+    <!-- <div class="cityen"> <a href="#" class="on">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a></div -->
+    <!-- <div class="cityname"><a href="#" class="on">安徽合肥</a></div> -->
   </div>
   <div class="index-list-wrap">
     <!--车-->
@@ -125,3 +111,16 @@
   <a href="{:url('index/index')}" id="jk" class=""><span></span>借款</a> 
   <a href="{:url('user/index')}" id="cf" class=""><span></span>我的账户</a> </nav></body>
 </html>
+<style type="text/css">
+  .invest_menuinfo ul li{
+    cursor: pointer;
+  }
+</style>
+<script type="text/javascript">
+  $(function(){
+    $(".invest_menuinfo ul li").click(function(){
+      var type=$(this).parent().attr("type");
+      alert(type)
+    })
+  })
+</script>

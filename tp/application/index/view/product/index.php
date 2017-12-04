@@ -28,10 +28,10 @@
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
     <ul class="term" type="month">
-      <li>3个月</li>
-      <li>6个月</li>
-      <li>一年</li>
-      <li>一年以上</li>
+      <li month="1">3个月</li>
+      <li month="2">6个月</li>
+      <li month="3">一年</li>
+      <li month="4">一年以上</li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_2" style="display:none">
@@ -120,7 +120,13 @@
   $(function(){
     $(".invest_menuinfo ul li").click(function(){
       var type=$(this).parent().attr("type");
-      alert(type)
+      
+      switch(type){
+        case "month":
+            var va=$(this).attr("month");
+            alert(va)
+        break;
+      }
     })
   })
 </script>

@@ -142,6 +142,7 @@ return [
     'view_replace_str'       => [
         // '__static__'=> dirname($_SERVER['SCRIPT_NAME']),
         '__static__'=> think\Url::build('/'),    
+        '__admin__'=>  think\Url::build('/')."admin/",
         // '__static__'=>substr(think\Url::build('/'),0,11),
     ],
     // 默认跳转页面对应的模板文件

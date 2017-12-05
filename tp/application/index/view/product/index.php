@@ -36,18 +36,18 @@
   </div>
   <div class="invest_menuinfo" id="con_one_2" style="display:none">
     <ul class="term" type="status">
-      <li>即将上线</li>
-      <li>正在募集</li>
-      <li>正在回款</li>
-      <li>回款完毕</li>
+      <li status="1">即将上线</li>
+      <li status="2">正在募集</li>
+      <li status="3">正在回款</li>
+      <li status="4">回款完毕</li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_3" style="display:none">
     <ul class="term" type="city">
-      <li>北京</li>
-      <li>上海</li>
-      <li>深圳</li>
-      <li>广州</li>
+      <li city="1">北京</li>
+      <li city="2">上海</li>
+      <li city="3">深圳</li>
+      <li city="4">广州</li>
     </ul>
     <!-- <div class="cityen"> <a href="#" class="on">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a></div -->
     <!-- <div class="cityname"><a href="#" class="on">安徽合肥</a></div> -->
@@ -56,11 +56,11 @@
     <!--车-->
   <?php foreach ($product as $k => $v) {?>
     <div class="index-pad"> <a class="index-list index-che" href="{:url('product/desc')}?pid=<?=$v['product_id']?>">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong><?=$v['product_cade']?></strong></span> <span class="fr tit-site"><i></i> <strong></strong> </span> </div>
+      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong><?=$v['product_cade']?></strong></span> <span class="fr tit-site"><i></i> <strong><?php if ($v['product_city']==1) {echo "北京";}else if ($v['product_city']==2) {echo "上海";}elseif ($v['product_city']==3) {echo "广州";}else if ($v['product_city']==4) {echo "深圳";}?></strong> </span> </div>
       <div class="list-main">
         <div class="main-l"> <span class="per"><?=$v['product_rate']*100?><i>%</i></span> <span class="add">A</span> </div>
         <div class="main-m main-m-1"> <span><?=$v['product_need_money']?>元</span> </div>
-        <div class="main-m main-m-2"> <span class="day"><?php $time=$v['product_time']-time();echo date('d',$time);?>天</span> </div>
+        <div class="main-m main-m-2"> <span class="day"><?=$v['product_time']?>个月</span> </div>
         <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per"><?php if($v['product_need_money']==0){ echo 0;}else{ $num=$v['product_money']/$v['product_need_money'];$num1=sprintf('%.2f',$num);echo $num1*100;}?><i>%</i></span> </div>
       </div>
       </a> </div>
@@ -101,6 +101,14 @@
             var va=$(this).attr("month");
             getproduct(type,va)
         break;
+        case "status":
+            var va=$(this).attr("status");
+            getproduct(type,va);
+        break;
+        case "city":
+            var va=$(this).attr("city");
+            getproduct(type,va);
+            break;
       }
     })
   })
@@ -114,12 +122,47 @@
       },
       dataType:"json",
       success:function(e){
-        if (e.error==1) {
-          
+        if (e.error==200) {
+          var str="";
+           $.each(e.msg, function(i, n){ 
+            str+="<div class='index-pad'><a class='index-list index-che' href={:url(
+                                    'product/desc')}?pid="+n.product_id+">";
+            str+='<div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>'+n.product_cade+'</strong></span> <span class="fr tit-site"><i></i>';
+            if (n.product_city==1) {
+              str+='<strong>北京</strong></span> </div>'
+            }else if (n.product_city==2) {
+              str+='<strong>上海</strong></span> </div>'
+            }else if(n.product_city==3){
+              str+='<strong>广州</strong></span> </div>'
+            }else if(n.product_city==4){
+              str+='<strong>深圳</strong></span> </div>'
+            };
+            
+            str+='<div class="list-main"><div class="main-l"> <span class="per">'+n.product_rate*100+'<i>%</i></span> <span class="add">A</span> </div>';
+            str+='<div class="main-m main-m-1"> <span>'+n.product_need_money+'元</span> </div>'
+            str+='<div class="main-m main-m-2"> <span class="day">'+n.product_time+'个月</span> </div>'
+            if (n.product_need_money==0) {
+              str+='<div class="main-r"><span class="circle-blue circle-c57"></span> <span class="val-per">0<i>%</i></span> </div></div></a></div>'
+            }else{
+              str+='<div class="main-r"><span class="circle-blue circle-c57"></span> <span class="val-per">'+(n.product_money/n.product_need_money).toFixed(2)*100+'<i>%</i></span> </div></div></a></div>';
+            }
+            
+          });
+           $(".index-list-wrap").html(str)
         }else{
-          alert(e.msg)
+          $(".index-list-wrap").html(e.msg)
         }
       }
     })
   }
 </script>
+
+
+
+
+
+      
+      
+        
+        
+        

@@ -10,12 +10,14 @@ use think\Request;
 class Product extends Controller
 {
 	public function index(){
+		// $a=strtotime("2017-12-05 00:00:00");
+		// var_dump($a);die;
 		$url="http://localhost/bigexcise/e/tp/public/port/product/getproduct?type=all";
 		$res=file_get_contents($url);
 		$product=json_decode($res,true);
 		// echo "<pre>";
-		// print_r($product);die;
-		if ($product['error']==1) {
+		// print_r($product['msg']);die;
+		if ($product['error']==200) {
 			return $this->fetch("index",["product"=>$product['msg']]);die;
 		}else{
 			return $this->fetch("index",["product"=>""]);die;
@@ -24,7 +26,7 @@ class Product extends Controller
 	} 
 	public function desc(){
 		$pid=Request::instance()->get('pid');
-		var_dump($pid);
+		return $this->fetch("show");
 	}
 	public function getinfo(){
 		$type=Request::instance()->post('type');

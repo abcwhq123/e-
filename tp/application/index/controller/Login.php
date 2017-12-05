@@ -4,6 +4,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use think\Config;
+use think\Captcha;
 
 class Login extends Controller
 {
@@ -14,7 +15,7 @@ class Login extends Controller
 
     //注册
     public function register() {  
-    	$str = "/financial/public/index.php/";
+    	
 		  	
 		// $a = Config::get("view_replace_str");
 		// $static = $a['__static__'];
@@ -34,30 +35,46 @@ class Login extends Controller
 
     //验证手机号是否为真
     public function sendtell() {
-    	
-    	$phone  = Request::instance()->post('user_tel');
-    	$AppKey = Config::get('AppKey');
-    	$tempid = Config::get('tempid');
-    	$sign = Config::get('Sign');
-    	$rand = mt_rand(1000,9999);
-        $exist = Db('user')->where('user_tel',$phone)->find();
-
-        if (!empty($exist)) {
-            $url = "http://api.k780.com/?app=sms.send&tempid=".$tempid."&param=code%3D".$rand."&phone=".$phone."&appkey=".$AppKey."&sign=".$sign."&format=json";
-            $data = file_get_contents($url);
-            $data = json_decode($data); 
-            //返回加密的验证码 以及 手机号查询状态 
-            $code = sha1(md5($rand).$phone);
-            $data = ['res'=>$data,"code"=>$code];
-        }else{
-            $data['success'] = "1";
-            $data['msg'] = "已注册";
-         }
-    	
-        
-        echo json_encode($data);
+    	$site = Config::get('Site');
+        $phone  = Request::instance()->post('user_tel');
+    	$url = $site."?tell=".$phone;
+        $data = file_get_contents($url);
+        echo $data;
     }
 
+    public function get_captcha(){    
+        $txt_yzm  = Request::instance()->post('code');
+
+        $capthcha = new \think\captcha\Captcha();
+        
+        if ($capthcha->check($txt_yzm)){
+            $json['status'] = "1";
+        }else{
+            $json['status'] = "2";
+            $json['msg'] = "验证码错误！！";
+        }
+        echo json_encode($json);
+    }
+
+    public function md5_code(){
+        $tel_code  = Request::instance()->post('tel_code');
+        $phone  = Request::instance()->post('user_tel');
+        $yzm_code = Request::instance()->post('code');
+        $code = md5($tel_code.$phone);
+
+        if ($yzm_code == "") {
+            $json['status'] = 2;
+            $json['msg'] = "没有发送短信";
+        }else{
+            if ($yzm_code != $code) {
+                $json['status'] = 3;
+                $json['msg'] = "验证码错误";
+            }else{
+                $json['status'] = 1;
+            }
+        }     
+        echo json_encode($json); 
+    }
 
 
 

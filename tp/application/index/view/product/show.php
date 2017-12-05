@@ -40,7 +40,7 @@
 <script src="__static__script/jquery-ui.min.js"></script>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>项目列表</span> <a href="#" class="z-02"></a> </div>
+  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>产品详情</span> <a href="#" class="z-02"></a> </div>
 </section>
 <!-- 中间内容 -->
 <div class="main">
@@ -49,7 +49,7 @@
     <aside class="sec_ce">
       <p class="sec_ce_id">募集进度</p>
       <img src="__static__images/zhuti.png" alt="">
-      <p class="sec_ce_pc ng-binding">12<span class="sec_ce_b">%</span></p>
+      <p class="sec_ce_pc ng-binding"><?=$product['length']?><span class="sec_ce_b">%</span></p>
       <div class="sec_ce_pt"> <span>按月付息，到期还本</span> </div>
     </aside>
   </div>
@@ -57,41 +57,42 @@
   <div class="project-status">
     <div class="project-base-info">
       <div class="col-xs-4 ui-border-right">
-        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18">12.00</span> %</p>
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><?=$product['product_rate']*100?></span> %</p>
         <p class="ui-fs-12 text-nowrap">年化收益</p>
       </div>
       <div class="col-xs-4 ui-border-right">
-        <p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue">6 </span>个月</p>
-        <p class="ui-fs-12">项目期限</p>
+        <p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue"><?=$product['product_time']?></span>个月</p>
+        <p class="ui-fs-12">产品期限</p>
       </div>
       <div class="col-xs-4">
-        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class="">500,000</span></span> 元</p>
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class=""><?=$product['product_need_money']?></span></span> 元</p>
         <p class="ui-fs-12">项目金额</p>
       </div>
     </div>
-    <div class="project-left-time ui-fs-12 text-center">剩余时间：2 天 0 小时 25 分钟</div>
+    <div class="project-left-time ui-fs-12 text-center">剩余时间：<div id="time"><?php $t=$product['end']-time();echo date('d',$t);?>天<span id="hideD"><strong id="RemainD"></strong>天</span> <span id="hideH"><strong id="RemainH"></strong>小时</span><span id="hideM"> <strong id="RemainM"></strong>分钟</span> <span id="hideS"><strong id="RemainS"></strong>秒</span></div></div>
   </div>
   <!--具体信息-->
   <div class="c-detailinfo">
     <dl>
+      <dt>产品名称</dt>
+      <dd><?=$product['product_name']?></dd>
+    </dl>
+    <dl>
       <dt>合作机构</dt>
-      <dd>秦皇岛硕丰投资咨询有限公司</dd>
+      <dd><?=$product['product_mechanism']?></dd>
     </dl>
     <dl>
       <dt>项目编码</dt>
-      <dd>车易贷   HBSF-CYD-2015-0022</dd>
+      <dd><?=$product['product_cade']?></dd>
     </dl>
     <dl>
       <dt>可投金额</dt>
-      <dd><font class="ui-fc-blue">29,000.00</font>元</dd>
+      <dd><font class="ui-fc-blue"><?=$product['product_money']?></font>元</dd>
     </dl>
-    <dl>
-      <dt>账户余额</dt>
-      <dd><font class="ui-fc-blue">1.15</font>元</dd>
-    </dl>
+    
     <dl>
       <dt>到期时间</dt>
-      <dd>2016-03-13 </dd>
+      <dd><?=$product['end']?></dd>
     </dl>
   </div>
  
@@ -219,7 +220,7 @@
         <div class="clear"></div>
       </div>
       <div class="c-tabs-cnt c-tzjlinfo" style="display: none;">
-        <form id="" name="" method="post" action=""  style="width: 100%">
+        
           <table style="width: 100%">
             <tbody>
               <tr>
@@ -261,7 +262,7 @@
           </table>
           <div class="clear"></div>
           <div class="addmore"><a href="#" title="查看更多" class="btn-ckgd">查看更多↓</a> </div>
-        </form>
+        
       </div>
     </div>
   </div>
@@ -309,31 +310,69 @@
 
 <!-- 页面底部 -->
 <article class="foot_bottom clearfix pt_10  border_t Js_input">
-      <form action="/member/buy.do" method="post" id="investForm">
+      
       <input type="hidden" name="fpId" id="fpId" value="ADRUNlYyVToFYVRiUDdeawoxVWwCaAJgBT4FNQBjU2Q=">
       <input type="hidden" id="staticImg" value="http://m.niwodai.com/mobile/2015/images/">
-    <input type="hidden" id="amountJoinMin" name="amountMin" class="amountMin" value="50">
-      <input type="hidden" id="amountJoinMax" name="amountMax" class="amountMax" value="10000">
+    <input type="hidden" id="amountJoinMin" name="amountMin" class="amountMin" value="100">
+      <input type="hidden" id="amountJoinMax" name="amountMax" class="amountMax" value="<?=$product['product_money']?>">
       <input type="hidden" id="amountJoinRest" class="amountRest" value="10000">
       <input type="hidden" id="amountIncrease" name="increase" class="increase" value="50">
       <input type="hidden" name="businessType" value="0">
       <input type="hidden" id="token" name="token" value="2bb0b56e-7905-4e97-a6b2-de62d4a06a8a">
          <div class="ft_l fl">
              <div class="money">
-                 <input type="button" class="left-a pos1 minus" id="jian" value="">
+                 <input type="button" class="left-a pos1 minus" id="jian" <img src='__static__images/jian.png' width='20' height='20'>
                  <div class="input_c">
-                     <input type="text" name="amount" id="investmentAmount" value="10000" class="num" maxlength="9" placeholder="请输入50的整数倍">
+                     <input type="text" name="amount" id="investmentAmount" value="100" class="num" maxlength="9" placeholder="请输入50的整数倍">
                      <span class="fr">元</span>
                  </div>
                  <input type="button" class="left-a pos2 plus" id="plus" value="">
              </div>
          </div>
          <div class="ft_r fr">
-        <input id="submit" type="button" value="立即抢购" class="btn btn_orange w_10">
+         <form action="{:url('product/order')}" method="post">
+        <input type="submit" value="立即抢购" class="btn btn_orange w_10">
+         </form>
          </div>       
-        </form> 
+        
   </article>
   <script type="text/javascript" src="__static__script/detail.js"></script>
 
 </body>
 </html>
+<script language="JavaScript">
+    var runtimes = 0;
+    function GetRTime(){
+        var nMS = <?php echo $overtime; ?>*1000-runtimes*1000;
+ 
+        if (nMS>=0){
+            var nD=Math.floor(nMS/(1000*60*60*24))%24;
+            var nH=Math.floor(nMS/(1000*60*60))%24;
+            var nM=Math.floor(nMS/(1000*60)) % 60;
+            var nS=Math.floor(nMS/1000) % 60;
+           document.getElementById("RemainD").innerHTML=nD;
+            document.getElementById("RemainH").innerHTML=nH;
+            document.getElementById("RemainM").innerHTML=nM;
+            document.getElementById("RemainS").innerHTML=nS;
+            runtimes++;
+            if(nD==0){
+                //天数0 隐藏天数
+                document.getElementById("hideD").style.display="none";
+                if(nH==0){
+                    //数0 隐藏天数
+                    document.getElementById("hideH").style.display="none";
+                    if(nM==0){
+                        document.getElementById("hideM").style.display="none";
+                        if(nS==0){
+                            document.getElementById("time").html("该产品已经完成");
+                        }
+                    }
+                }
+            }
+            setTimeout("GetRTime()",1000);
+        }
+    }
+    window.onload = function() {
+        GetRTime();
+    }
+</script>

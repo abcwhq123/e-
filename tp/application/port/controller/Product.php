@@ -78,6 +78,11 @@ class Product
 				$data=$this->judge($res);	
 				echo json_encode($data);
 				break;
+			case "one":
+				$res=Db('product')->where("product_status",1)->where("product_id",$va)->find();
+				$data=$this->judge($res);	
+				echo json_encode($data);
+				break;
 			default:
 				$data=$this->judge(0);	
 				echo json_encode($data);

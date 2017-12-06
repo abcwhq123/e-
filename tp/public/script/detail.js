@@ -11,23 +11,28 @@ var rest=$('#amountJoinRest').val();//剩余金额
 var amount=$('#investmentAmount').val();//输入框数据
 var staticImg=$("#staticImg").val();
 var planSign=$("#planSign").val();
+
 resetStype();
 $('#submit').on('click',function(){
-	if(validateForm()){
+	if (amount>max) {
+		$("#investmentAmount").val(max);
+		return false;
+	};
+	
 		$.ajax({
 			type: "post",
-			url: "#",
+			url: "{:url('product/order')}",
 			async: false,
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			data:$("#investForm").serialize(),
 			success: function(date){
-				window.location.href="#";
+				window.location.href="{:url('product/order')}";
 			},
 			error:function(date){
 				alertMsg(".pop_s", "服务器链接异常");
 			}
 		});
-	}
+	
 });
 //金额输入框investmentAmount发生keyup时，替换文本框中的非数字内容，替换0开头的数字
 $('#investmentAmount').on('keyup',function(){
@@ -164,14 +169,14 @@ function resetStype(){
 		min=parseInt(min);
 		max=parseInt(max);
 		if(amount-min<=0){
-			$('#jian').css('backgroundImage', 'url(images/jian.png)');
-			$('#plus').css('backgroundImage', 'url(images/add_hover.png)');
+			$('#jian').css('backgroundImage', 'url(../images/jian.png)');
+			$('#plus').css('backgroundImage', 'url(../images/add_hover.png)');
 		}else if(amount-max>=0){
-			$('#jian').css('backgroundImage', 'url(images/jian_hover.png)');
-			$('#plus').css('backgroundImage', 'url(images/jia.png)');
+			$('#jian').css('backgroundImage', 'url(../images/jian_hover.png)');
+			$('#plus').css('backgroundImage', 'url(../images/jia.png)');
 		}else{
-			$('#jian').css('backgroundImage', 'url(images/jian_hover.png)');
-			$('#plus').css('backgroundImage', 'url(images/add_hover.png)');
+			$('#jian').css('backgroundImage', 'url(../images/jian_hover.png)');
+			$('#plus').css('backgroundImage', 'url(../images/add_hover.png)');
 		}
 	}
 }

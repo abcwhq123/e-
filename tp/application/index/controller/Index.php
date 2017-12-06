@@ -13,4 +13,9 @@ class Index extends Controller
     public function info() {
         return $this->fetch("info");
     }
+
+    //项目列表
+    public function lists() {
+        return $this->fetch("lists");
+    }
 }

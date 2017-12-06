@@ -22,10 +22,9 @@ class Login
         $sql = "user_tel = '$user_name' AND user_pwd = '$user_pwd' OR user_name = '$user_name' AND user_pwd = '$user_pwd'  OR user_email = '$user_name'  AND user_pwd = '$user_pwd' ";
         $user = $user_model -> find_query($sql);
         $data = array("user_name"=>$user_name,"user_id"=>$user['user_id']);
-
+        Session::set('users',$data);
         $cookie = serialize($data);
         Cookie::set('users',$cookie,6200); 
-        Session::set('users',$data);
         echo json_encode($user);
     }
 

@@ -49,12 +49,10 @@
       <li city="3">深圳</li>
       <li city="4">广州</li>
     </ul>
-    <!-- <div class="cityen"> <a href="#" class="on">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a></div -->
-    <!-- <div class="cityname"><a href="#" class="on">安徽合肥</a></div> -->
   </div>
   <div class="index-list-wrap">
     <!--车-->
-  <?php foreach ($product as $k => $v) {?>
+  <?php foreach ($product['info'] as $k => $v) {?>
     <div class="index-pad"> <a class="index-list index-che" href="{:url('product/desc')}?pid=<?=$v['product_id']?>">
       <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong><?=$v['product_cade']?></strong></span> <span class="fr tit-site"><i></i> <strong><?php if ($v['product_city']==1) {echo "北京";}else if ($v['product_city']==2) {echo "上海";}elseif ($v['product_city']==3) {echo "广州";}else if ($v['product_city']==4) {echo "深圳";}?></strong> </span> </div>
       <div class="list-main">
@@ -66,7 +64,7 @@
       </a> </div>
     <?php }?>
     <!--房-->
-    <div class="index-pad"> <a class="index-list index-fang" href="#">
+    <!-- <div class="index-pad"> <a class="index-list index-fang" href="#">
       <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
       <div class="list-main">
         <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
@@ -74,10 +72,16 @@
         <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
         <div class="main-r"> <span class="circle-gray"></span> <span class="val-txt">回款中</span> </div>
       </div>
-      </a> </div>
+      </a> </div> -->
     <!--end-->
   </div>
-  <div class="UpPage"><ul> <li><a href="/loan/default?pid=1">上一页</a></li><li><span>2/64</span></li><li><a href="#">下一页</a></li></ul><div class="clear"></div></div>
+  <div class="UpPage"><ul> <li><a href="javascript:void(0)" id="pages" class="1">上一页</a></li><li><span><?=$product['page']['first']?>/<?=$product['page_num']?></span></li><li><a href="javascript:void(0)" id="pages" class="2">下一页</a></li></ul><div class="clear">
+  </div><ul class="pagination">
+  <li class="disabled"><span>«</span></li>
+        <li class="active"><span>1</span></li>
+        <li><a href="{:url('product/ajax_search_questions')}?page=2">2</a></li>
+        <li><a href="{:url('product/ajax_search_questions')}?page=2">»</a></li>
+</ul></div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> 
@@ -92,6 +96,80 @@
   }
 </style>
 <script type="text/javascript">
+  $(document).on("click","#pages",function(){
+      var page=$(this).prop('class');
+      var limit=3;
+      $.ajax({
+        url:"{:url('product/getpageinfo')}",
+        type:"post",
+        dataType:"json",
+        data:{
+          limit:limit,
+          page:page,
+        },
+        success:function(msg){
+            if(msg.info==0){
+              alert("没有记录，敬请期待!");
+            }else{
+              //console.log(msg)
+              pagelist(msg,page);
+            }
+        }
+      })
+  })
+  function pagelist(msg,$page=1){
+    var str="";
+    $.each(msg.info,function(i, n){
+       str+="<div class='index-pad'><a class='index-list index-che' href={:url(
+                                    'product/desc')}?pid="+n.product_id+">";
+            str+='<div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>'+n.product_cade+'</strong></span> <span class="fr tit-site"><i></i>';
+            if (n.product_city==1) {
+              str+='<strong>北京</strong></span> </div>'
+            }else if (n.product_city==2) {
+              str+='<strong>上海</strong></span> </div>'
+            }else if(n.product_city==3){
+              str+='<strong>广州</strong></span> </div>'
+            }else if(n.product_city==4){
+              str+='<strong>深圳</strong></span> </div>'
+            };
+            
+            str+='<div class="list-main"><div class="main-l"> <span class="per">'+n.product_rate*100+'<i>%</i></span> <span class="add">A</span> </div>';
+            str+='<div class="main-m main-m-1"> <span>'+n.product_need_money+'元</span> </div>'
+            str+='<div class="main-m main-m-2"> <span class="day">'+n.product_time+'个月</span> </div>'
+            if (n.product_need_money==0) {
+              str+='<div class="main-r"><span class="circle-blue circle-c57"></span> <span class="val-per">0<i>%</i></span> </div></div></a></div>'
+            }else{
+              str+='<div class="main-r"><span class="circle-blue circle-c57"></span> <span class="val-per">'+(n.product_money/n.product_need_money).toFixed(2)*100+'<i>%</i></span> </div></div></a></div>';
+            }
+    })
+    $(".index-list-wrap").html(str);
+    var strs="";
+    strs+="<ul>";
+    strs+="<li><a href='javascript:void(0);' id='pages' class='"+msg.page.up+"'>上一页</a></li>";
+    strs+="<li><span>"+$page+"/"+msg.page_num+"<span></li>";
+    strs+="<li><a href='javascript:void' id='pages' class='"+msg.page.next+"'>下一页</a></li>";
+    strs+="</ul>";
+    $(".UpPage").html(strs);
+  }
+</script>
+<script type="text/javascript">
+  function ajax_page(page) {        
+        $.ajax({
+            url:"{:url('product/ajax_search_questions')}",
+            type:"POST",
+            data:{page:page},            
+            success: function(data,status){
+                var add_html = '';
+                var list = data.list.data;
+                var html_page = data.page;
+                for (var i=0;i<list.length;i++){
+                    add_html = add_html+"<div><input type='checkbox' name='questions[]' value='"+list[i]['id']+"' />"+list[i]['title']+"</div>"
+                }
+                $("#search_questions_rel").html(add_html);
+                $("#page_div").html(html_page);
+            }
+        });
+    }
   $(function(){
     $(".invest_menuinfo ul li").click(function(){
       var type=$(this).parent().attr("type");

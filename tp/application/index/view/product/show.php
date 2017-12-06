@@ -69,7 +69,7 @@
         <p class="ui-fs-12">项目金额</p>
       </div>
     </div>
-    <div class="project-left-time ui-fs-12 text-center">剩余时间：<div id="time"><?php $t=$product['end']-time();echo date('d',$t);?>天<span id="hideD"><strong id="RemainD"></strong>天</span> <span id="hideH"><strong id="RemainH"></strong>小时</span><span id="hideM"> <strong id="RemainM"></strong>分钟</span> <span id="hideS"><strong id="RemainS"></strong>秒</span></div></div>
+    <div class="project-left-time ui-fs-12 text-center">剩余时间：<span id="hideD"><strong id="RemainD"></strong>天</span> <span id="hideH"><strong id="RemainH"></strong>小时</span><span id="hideM"> <strong id="RemainM"></strong>分钟</span> <span id="hideS"><strong id="RemainS"></strong>秒</span></div></div>
   </div>
   <!--具体信息-->
   <div class="c-detailinfo">

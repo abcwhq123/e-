@@ -3,26 +3,31 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
-
+use think\Db;//引入Db
+use app\index\model\Products;
 /**
 * 
 */
 class Product extends Controller
 {
 	public function index(){
-		// $a=strtotime("2017-12-05 00:00:00");
-		// var_dump($a);die;
 		$url="http://localhost/bigexcise/e/tp/public/port/product/getproduct?type=all";
 		$res=file_get_contents($url);
 		$product=json_decode($res,true);
-		
+
 		if ($product['error']==200) {
-			return $this->fetch("index",["product"=>$product['msg']]);die;
+			$products=new Products;
+	    	$count=$products->getnum();
+	    	$arr=$products->pages(1);
+	    	// echo "<pre>";
+	    	// print_r($arr);die;
+			return $this->fetch("index",["product"=>$arr]);die;
 		}else{
 			return $this->fetch("index",["product"=>""]);die;
 		}
 		
-	} 
+	}
+	
 	public function desc(){
 		$pid=Request::instance()->get('pid');
 		$url="http://localhost/bigexcise/e/tp/public/port/product/getproduct?type=one&va=$pid";
@@ -61,6 +66,27 @@ class Product extends Controller
 		$url="http://localhost/bigexcise/e/tp/public/port/product/getproduct?type=$type&va=$va";
 		$res=file_get_contents($url);
 		echo $res;
+	}
+	public function getpageinfo($page){
+		$products=new Products;
+		$type=input('type')?input('type'):"all";
+		$va=input('va')?input('type'):"";
+		// switch ($type) {
+		// 	case 'value':
+		// 		# code...
+		// 		break;
+			
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
+		$arr=$products->pages($page);
+		$pageData=[
+			"info"=>$arr['info'],
+			"page"=>$arr['page'],
+			"page_num"=>$arr['page_num'],
+		];
+		return $pageData;
 	}
 }
 

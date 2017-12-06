@@ -2,13 +2,17 @@
 namespace app\index\controller;
 
 use think\Controller;
-
+use app\index\model\Users;
 
 class User extends Controller
 {
 	//首页
     public function index() {
-        return view("index");
+        $user=new Users;
+        $res=$user->getuserinfo(1);
+        // echo "<pre>";
+        // print_r($res);die;
+        return $this->fetch("index",['user'=>$res]);
     }
 
     //充值

@@ -27,7 +27,7 @@
   </a>
   <!-- 登录和未登录 -->
   <div class="nav-top-bar" onClick="$(this).next().stop().slideToggle(200,'easeOutQuad')"></div>
-  <div class="header-nav"> <a href="{:url('login/register')}"> <img src="__static__images/register.png" /> 注册 </a> <a href="#"> <img src="__static__images/login.png" /> 登录 </a> <a href="#"> <img src="__static__images/invest.png" /> 投资 </a> </div>
+  <div class="header-nav"> <a href="{:url('login/register')}"> <img src="__static__images/register.png" /> 注册 </a> <a href="{:url('login/login')}"> <img src="__static__images/login.png" /> 登录 </a> <a href="#"> <img src="__static__images/invest.png" /> 投资 </a> </div>
 </header>
 <!-- 中间内容 -->
 <div class="main">
@@ -36,49 +36,21 @@
     <div class="swiper-wrapper" style="width: 2560px; height: 75px; -webkit-transform: translate3d(-1920px, 0px, 0px); transition: 0.3s; -webkit-transition: 0.3s;"><a class="swiper-slide swiper-slide-duplicate" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="__static__images/banner.png" height="75"></a> <a class="swiper-slide" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="__static__images/banner.png" height="75"></a> <a class="swiper-slide" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="__static__images/banner.png" height="75"></a> <a class="swiper-slide swiper-slide-duplicate swiper-slide-visible swiper-slide-active" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="__static__images/banner.png" height="75"></a></div>
     <div class="pagination"><span class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span><span class="swiper-pagination-switch"></span></div>
   </div>
-  <div class="wgt-login"> <a class="btn btn-regist" href="list.html">立即投资</a> <a class="btn btn-login" href="{:url('user/index')}">我的账户</a> </div>
+  <div class="wgt-login"> <a class="btn btn-regist" href="{:url('product/index')}">立即投资</a> <a class="btn btn-login" href="{:url('user/index')}">我的账户</a> </div>
   <div class="clear"></div>
   <div class="index-list-wrap">
     <!--车-->
-    <div class="index-pad"> <a class="index-list index-che" href="{:url('index/info')}">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
+     <?php foreach ($product['info'] as $k => $v) {?>
+    <div class="index-pad"> <a class="index-list index-che" href="{:url('product/desc')}?pid=<?=$v['product_id']?>">
+      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong><?=$v['product_cade']?></strong></span> <span class="fr tit-site"><i></i> <strong><?php if ($v['product_city']==1) {echo "北京";}else if ($v['product_city']==2) {echo "上海";}elseif ($v['product_city']==3) {echo "广州";}else if ($v['product_city']==4) {echo "深圳";}?></strong> </span> </div>
       <div class="list-main">
-        <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>500.<em>00</em><i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per">57<i>%</i></span> </div>
+        <div class="main-l"> <span class="per"><?=$v['product_rate']*100?><i>%</i></span> <span class="add">A</span> </div>
+        <div class="main-m main-m-1"> <span><?=$v['product_need_money']?>元</span> </div>
+        <div class="main-m main-m-2"> <span class="day"><?=$v['product_time']?>个月</span> </div>
+        <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per"><?php if($v['product_need_money']==0){ echo 0;}else{ $num=$v['product_money']/$v['product_need_money'];$num1=sprintf('%.2f',$num);echo $num1*100;}?><i>%</i></span> </div>
       </div>
       </a> </div>
-    <!--房-->
-    <div class="index-pad"> <a class="index-list index-fang" href="infor.html">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>80 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-gray"></span> <span class="val-txt">回款中</span> </div>
-      </div>
-      </a> </div>
-    <!--车-->
-    <div class="index-pad"> <a class="index-list index-che" href="infor.html">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>40 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-blue circle-c100"></span> <span class="val-per">100<i>%</i></span> </div>
-      </div>
-      </a> </div>
-    <!--房-->
-    <div class="index-pad"> <a class="index-list index-fang" href="infor.html">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>80 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"><span class="circle-blue circle-f13"></span> <span class="val-per">13<i>%</i></span> </div>
-      </div>
-      </a> </div>
+    <?php }?>
     <!--end-->
   </div>
   <div class="mx10 pb10"> <a href="#" class="index-more"><i>查看全部项目</i></a> </div>

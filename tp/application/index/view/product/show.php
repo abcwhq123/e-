@@ -100,7 +100,7 @@
   <div class="c-detail">
     <div class="c-tabsmsg">
       <div class="c-tabstit-wrap">
-        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3">投资记录</span> </div>
+        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">产品详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">返息计划</span> <span class="c-tzjltit" data-index="3">投资记录</span> </div>
       </div>
       <div class="clear"></div>
       <div class="c-tabs-cnt c-xmxqinfo" style="display: none;">
@@ -159,7 +159,7 @@
       <div class="c-con">
 <h2>阳光五维指数</h2>
 <div class="wwzs">
-
+<input type="hidden" value="<?=$product['product_id']?>" id="pid">
   <div class="wwzs_con fl"><p>人员基本情况：10.0<br>担保信息和其他信息：9.0<br>
   征信报告和银行对账单：14.0<br>资金用途及还款来源：23.0<br>资金抵押情况：36.0</p></div>
 
@@ -176,45 +176,14 @@
       </div>
       <div class="c-tabs-cnt c-hkjhinfo" style="display: none;">
         <table width="100%">
-          <tbody>
+          <tbody id="bodys">
             <tr>
               <th align="left" width="32%" style="padding-left:10px;">计划还款时间<span class="tbline" style="margin-top:15px;"></span></th>
               <th align="center" width="20%">类型<span class="tbline" style="margin-top:15px;"></span></th>
               <th align="right" width="38%" style="padding-right:10px;">还款金额(元)</th>
             </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2015-10-15 <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3178.08<em class="whuan">未还</em> </td>
-            </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2015-11-15 <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3397.26<em class="whuan">未还</em> </td>
-            </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2015-12-15 <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3287.67<em class="whuan">未还</em> </td>
-            </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2016-01-15 <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3397.26<em class="whuan">未还</em> </td>
-            </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2016-02-15 <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3397.26<em class="whuan">未还</em> </td>
-            </tr>
-            <tr>
-              <td align="left" width="32%" style="padding-left:10px;">2016-03-14 <span class="tbline"></span><br>
-                <span class="tbline"></span> </td>
-              <td width="20%" align="center">利息<span class="tbline"></span><br>
-                本金<span class="tbline"></span> </td>
-              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3068.49<em class="whuan">未还</em><br>
-                250000.00<em class="whuan">未还</em> </td>
-            </tr>
+            
+            
           </tbody>
         </table>
         <div class="clear"></div>
@@ -223,41 +192,26 @@
         
           <table style="width: 100%">
             <tbody>
+            
               <tr>
                 <th align="left" width="25%" style="padding-left:10px;">用户名<span class="tbline" style="margin-top:15px;"></span></th>
                 <th width="25%" align="center">金额(元)<span class="tbline" style="margin-top:15px;"></span></th>
                 <th align="right" width="40%" style="padding-right:10px;">投资时间</th>
               </tr>
+              <?php if (empty($orderlist)) {?>
+                <tr>
+                  <td align="center" colspan="3">暂无投资人...期待你的投资</td>
+                </tr>
+              <?php }else{?>
+              <?php foreach ($orderlist as $ke => $va) {?>
               <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> x***g <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">1,484</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-17 09:46 </td>
+                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> <?php if (empty($va['user_name'])) {
+                 echo $va['user_tel'];}else{ echo $va['user_name'];}?>
+                <span class="tbline"></span> </td>
+                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;"><?=$va['order_money']?></i></td>
+                <td align="right" style="padding-right:10px;"><?=date("Y-m-d H:i",$va['order_time'])?></td>
               </tr>
-              <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> x***g <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">3,000</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-17 09:38 </td>
-              </tr>
-              <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> k***1 <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">20,000</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-17 09:02 </td>
-              </tr>
-              <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> W***9 <i class="c-tzjlicon"></i> <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">144</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-17 06:17 </td>
-              </tr>
-              <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> a***n <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">3,972</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-17 01:44 </td>
-              </tr>
-              <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> d***6 <i class="c-tzjlicon"></i> <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">3,169</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-16 23:48 </td>
-              </tr>
+              <?php }}?>
             </tbody>
           </table>
           <div class="clear"></div>
@@ -331,7 +285,7 @@
          </div>
          <div class="ft_r fr">
          <form action="{:url('product/order')}" method="post">
-        <input type="submit" value="立即抢购" class="btn btn_orange w_10">
+        <input id="submit" type="submit" value="立即购买" class="btn btn_orange w_10">
          </form>
          </div>       
         
@@ -375,4 +329,35 @@
     window.onload = function() {
         GetRTime();
     }
+    $(function(){
+      $("#investmentAmount").blur(function(){
+          var pid=$("#pid").val();
+          var money=$("#investmentAmount").val();
+          var max=$('#amountJoinMax').val();//最大金额
+          if (money>max) {
+            $("#investmentAmount").val(max)
+            money=$("#investmentAmount").val();
+          }
+          $.ajax({
+              url:"{:url('product/getmoney')}",
+              type:"post",
+              data:{
+                pid:pid,
+                money:money
+              },
+              dataType:"json",
+              success:function(e){
+                 var str='<tr><th align="left" width="32%" style="padding-left:10px;">计划还款时间<span class="tbline" style="margin-top:15px;"></span></th><th align="center" width="20%">类型<span class="tbline" style="margin-top:15px;"></span></th><th align="right" width="38%" style="padding-right:10px;">还款金额(元)</th></tr>';
+                 $.each(e,function(i, n){
+                      str+=' <tr><td align="left" width="32%" style="padding-left:10px;">'+n.time+'<span class="tbline"></span> </td>';
+                      str+='<td width="20%" align="center"'+n.types+'<span class="tbline"></span> </td>';
+                      str+='<td align="right" width="38%" style="padding-right:10px; color:#0caffe;">'+n.money+'<em class="whuan">未还</em> </td></tr>';
+                 })
+                 $("#bodys").html(str);
+              }
+          })
+      })
+    })
 </script>
+
+              

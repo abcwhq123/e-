@@ -15,23 +15,12 @@ var planSign=$("#planSign").val();
 
 $('#submit').on('click',function(){
 	if (amount>max) {
-		$("#investmentAmount").val(max);
-		return false;
-	};
-	
-		$.ajax({
-			type: "post",
-			url: "{:url('product/order')}",
-			async: false,
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			data:$("#investForm").serialize(),
-			success: function(date){
-				window.location.href="{:url('product/order')}";
-			},
-			error:function(date){
-				alertMsg(".pop_s", "服务器链接异常");
-			}
-		});
+		$("#investmentAmount").val(max)
+		amount=$("#investmentAmount").val();
+		return false;	
+	}else{	
+		return true;
+	}	
 	
 });
 //金额输入框investmentAmount发生keyup时，替换文本框中的非数字内容，替换0开头的数字

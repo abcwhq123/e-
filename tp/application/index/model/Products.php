@@ -47,5 +47,32 @@ class Products extends Model
 		];
 		return $arr;
 	}
+	//获取该投资产品下的所有投资人
+	public function getorderinfo($pid){
+		return Db::table('order')
+		->alias('o')
+		->join('user u','o.user_id = u.user_id')
+		->where("o.product_id",$pid)
+		->where("order_status",'1')
+		->select();
+	}
+	//获取产品的应还利息
+	public function getmore($pid,$money){
+		$product=Db::table($this->table)->where('product_id',$pid)->find();
+		$rate=$product['product_rate']/12*$product['product_time'];  //每个月还的利息
+		$month=$money/$product['product_time']; //每个月还款的本金
+		$more=0;
+		$time=time();
+		for ($i = 0; $i < $product['product_time']; $i++) {
+			$time=strtotime('+1 month',$time);
+			$data[$i]['time']=date("Y-m-d",$time);
+			$data[$i]['money']=sprintf('%.2f',$money*$rate+$month);
+			$data[$i]['types']="利息";
+			$money=$money-$month;
+			$more=$more+$rate;
+			$data[$i]['more']=$more;
+		}
+		return $data;
+	}
 
 }

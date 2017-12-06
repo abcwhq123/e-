@@ -6,21 +6,26 @@
 <meta name="format-detection" content="telephone=no,email=no,adress=no"/>
 <title>首页</title>
 <link rel="stylesheet" type="text/css" href="__static__css/common.css" />
-<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript" src="__static__script/jquery.js"></script>
 </head>
 <body>
 <!-- 页面头部 -->
 <section>
   <div class="navigation-bar"> <a href="{:url('user/index')}" class="z-04"></a> <span>会员中心</span> <a href="{:url('index/index')}" class="z-03"></a> </div>
 </section>
-<!-- 中间内容 -->
+<!-- 中间内容 --> 
 <div class="summary">
-  <div class="head"><img id="photoImage" src="__static__images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username">zhuchaoyou</span>
+  <div class="head"><?php if (empty($user['info_img'])) {?>
+    <img id="photoImage" src="__static__images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;">
+    <?php }else{?>
+    <img id="photoImage" src="__static__<?=$user['info_img']?>" alt="" style="width:80px;height:80px;z-index:0;">
+    <?php }?> 
+  <span class="username"><?php if (empty($user['user_name'])) {echo $user['user_tel'];}else{  echo $user['user_name'];}?></span>
     <div class="headamount">
       <div class="p-amount"> <i>0.00 </i><br>
         累计收益（元） </div>
       <div class="p-amount"> <i>
-        <label> 0.00</label>
+        <label><?=sprintf('%.2f',$user['info_balance']) ?></label>
         </i><br>
         可用余额（元） </div>
     </div>

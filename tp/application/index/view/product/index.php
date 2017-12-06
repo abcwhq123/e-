@@ -63,16 +63,6 @@
       </div>
       </a> </div>
     <?php }?>
-    <!--房-->
-    <!-- <div class="index-pad"> <a class="index-list index-fang" href="#">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>合肥分站 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">15.0<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>80 <i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-gray"></span> <span class="val-txt">回款中</span> </div>
-      </div>
-      </a> </div> -->
     <!--end-->
   </div>
   <div class="UpPage"><ul> <li><a href="javascript:void(0)" id="pages" class="1">上一页</a></li><li><span><?=$product['page']['first']?>/<?=$product['page_num']?></span></li><li><a href="javascript:void(0)" id="pages" class="2">下一页</a></li></ul><div class="clear">

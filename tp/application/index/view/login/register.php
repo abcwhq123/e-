@@ -73,10 +73,10 @@ body[0].removeChild(mybg);
   <div class="wrapper-reg">
     <div class="page-header"> <a href="/"> <img src="__static__images/reg-logo.png"> </a> </div>
     <div class="page-main">
-      <form id="registerForm" name="registerForm" method="post" action="#" class="reg-form" enctype="application/x-www-form-urlencoded">
+      <form id="registerForm" name="registerForm" method="post" action="" class="reg-form" >
         <div class="m-field">
           <div class="iconphone"></div>
-          <input id="registerForm:mobileNumber" type="text" name="user_tel" class="c-txt" maxlength="15"  placeholder="请输入真实手机号码">
+          <input id="registerForm:mobileNumber" type="text" value="<?= isset($_COOKIE['user_tel']) ? $_COOKIE['user_tel'] : '' ?>" name="user_tel" class="c-txt" maxlength="15"  placeholder="请输入真实手机号码">
           <p id="mobileNumberErrorDiv" class="validateNew"></p>
         </div>
         <div class="m-field" style="position: relative;">
@@ -92,7 +92,7 @@ body[0].removeChild(mybg);
             <div class="m-field m-yzm" id="imageCode" >
                 <div class="m-code">
                     <div class="iconyzm"></div>
-                    <input id="authCode" type="text" name="code" class="c-txt c-code" maxlength="5"  placeholder="请输入验证码">
+                    <input id="authCode" type="text" name="code" class="c-txt c-code" maxlength="5" autocomplete="off" placeholder="请输入验证码">
                 </div>
                 <span class="c-yzm"><img src="{:captcha_src()}" class="verify" onclick="javascript:this.src='{:captcha_src()}?rand='+Math.random()" ></span>
                 <p id="j_yzmErrorDiv"></p>
@@ -106,10 +106,10 @@ body[0].removeChild(mybg);
         <span class="c-yzm c-hqyzm">获取验证码</span> 
         <span id="sendCode" class="c-yzm c-hqyzm">
             <?php if (isset($_COOKIE['wait']) ? $_COOKIE['wait'] : "" != 0 || !empty($_COOKIE['wait'])){ ?>
-              <input type="button" id="btn"  onload="zdtime(this)" style="border:none;background:#F1483C" name="getbtn" class="hqyzm" value="重新发送(<?= isset($_COOKIE['wait']) ? $_COOKIE['wait'] : '' ?>)"/>
+              <input type="button" id="btn"  onload="zdtime(this)" autocomplete="off" style="border:none;background:#F1483C" name="getbtn" class="hqyzm" value="重新发送(<?= isset($_COOKIE['wait']) ? $_COOKIE['wait'] : '' ?>)"/>
               <input type="hidden" name="tel_code_yz" id="tel_code_yz">
             <?php }else{ ?>
-              <input type="button" id="btn" style="border:none;background:#F1483C" name="getbtn" class="hqyzm" value="获取验证码" />
+              <input type="button" id="btn" autocomplete="off" style="border:none;background:#F1483C" name="getbtn" class="hqyzm" value="获取验证码" />
               <input type="hidden" name="tel_code_yz" id="tel_code_yz">
             <?php } ?>
         </span> 
@@ -143,7 +143,7 @@ var action = {
 
 //判断手机号是否符合规则
 
-$("input[name='user_tel']").blur(function(){
+$(document).on("blur","input[name='user_tel']",function(){
     $("#mobileNumberErrorDiv").empty("")
     var user_tel = $(this).val()
     var myreg = /^1[3|4|5|7|8][0-9]{9}$/; 
@@ -152,7 +152,23 @@ $("input[name='user_tel']").blur(function(){
         action.user_tel = false;
         return false; 
     }
-    action.user_tel = true;
+    $.ajax({
+        type:"post",
+        url:"{:url('login/true_tell')}",
+        dataType:"json",
+        data:{
+            user_tel:user_tel
+        },
+        success:function(o){
+            if (o.status==1) {
+                action.user_tel = true;
+            }
+            if (o.status==2) {
+                $("#mobileNumberErrorDiv").append(o.msg)
+                action.user_tel = false;
+            }
+        }
+    })      
 })
 
 //判断密码的准确性
@@ -160,7 +176,6 @@ $("input[name='user_tel']").blur(function(){
 $("input[name='user_pwd']").blur(function(){
     $("#passwordErrorDiv").empty("")
     var user_pwd = $(this).val();
-    // alert(user_pwd)
     var myreg =   /^[A-Za-z0-9]{6,20}$/;
     if(!myreg.test(user_pwd))  { 
         $("#passwordErrorDiv").append("密码为6-20位的字母或数字")
@@ -219,6 +234,9 @@ $("#authCode").blur(function(){
         }
     })      
 })
+$(".verify").click(function(){
+    $("#authCode").val("")
+})
 
 //判断手机验证码是否正确
 
@@ -227,7 +245,6 @@ $("input[name='tel_code']").blur(function(){
     var tel_code = $(this).val()
 
     var user_tel = $("input[name='user_tel']").val()
-    alert(user_tel)
     var myreg = /^[0-9]{4}$/;
     if(!myreg.test(tel_code))  { 
         $("#tel_yzmErrorDiv").append("验证码错误！！")
@@ -270,6 +287,7 @@ if ($.cookie('wait') == "NaN" || $.cookie('wait') == undefined || $.cookie('wait
 $(".hqyzm").click(function(){
     $("#mobileNumberErrorDiv").empty("")
     var user_tel = $("input[name='user_tel']").val()
+    $.cookie('user_tel',user_tel)
     var myreg = /^1[3|4|5|7|8][0-9]{9}$/; 
     var btn = $(this).attr("id")
     if(!myreg.test(user_tel))  { 
@@ -291,6 +309,7 @@ $(".hqyzm").click(function(){
               }else{
                 var data = eval(o.res); 
                 if (data.success == "1") {
+                    $("#tel_code_yz").append(o.code)
                     $.cookie('code',o.code)
                 }else{
                   alert("手机号错误")
@@ -300,7 +319,7 @@ $(".hqyzm").click(function(){
         })      
     }
 })
-// if ($.cookie('wait') != 0  || $.cookie('wait') != "") {
+// if ($.cookie('wait') != 0  || $.cookie('wait') != "" || $.cookie('wait') != "NaN" || $.cookie('wait') != undefined ) {
 //     $(".hqyzm").trigger("click"); 
 // } 
 function time(o) {
@@ -337,6 +356,16 @@ $("form").submit(function(e){
 
 </script>
 <script type="text/javascript">
+// 禁止页面刷新
+$(document).ready(function() {
+    $(document).bind("keydown",function(e){
+        e = window.event||e;
+        if( e.keyCode==116 ){
+            e.keyCode = 0;
+            return false;
+        }
+    });
+}); 
 $("#allmm").bind("click",function(){
     if($("#allmenu").css("display")=="none"){
         $("#allmenu").slideDown(300);

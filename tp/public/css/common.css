@@ -297,14 +297,14 @@ header.header .header-nav a img { display:block; width:50px; margin-bottom:5px}
 
 /* 项目详情 */
 .con-circle{ width:100%; background:#0caffe; padding:30px 0px; display:block; overflow:hidden;}
-.sec_ce{display:-webkit-box;display:-moz-box;display:-o-box;display:box;-webkit-box-pack:center;-moz-box-pack:center;-o-box-pack:center;box-pack:center;height:200px;position:relative;margin-left:550px;}
+.sec_ce{display:-webkit-box;display:-moz-box;display:-o-box;display:box;-webkit-box-pack:center;-moz-box-pack:center;-o-box-pack:center;box-pack:center;height:200px;position:relative;margin-left:0px;}
 .sec_ce_id{position:absolute;left:0;top:0;width:100%;text-align:center;padding-top:25px;color:#fff}
 .sec_ce_p{position:absolute;left:0;top:0;width:100%;text-align:center;padding-top:70px;color:#fff}
 .sec_ce_pc{position:absolute;left:0;top:-5px;width:100%;text-align:center;color:#fff;font-size:60px}
 .sec_ce_b{font-size:30px}
 .sec_ce_pt{position:absolute;left:0;top:0;width:100%;text-align:center;padding-top:135px}
 .sec_ce_pt span{color:#fff;font-size:14px}
-.sec_ce img{width:200px}
+.sec_ce img{width:200px;}
 
 .col-xs-4 { width: 29%; float:left;}
 .ui-fc-blue { color:#0caffe;}
@@ -412,8 +412,8 @@ header.header .header-nav a img { display:block; width:50px; margin-bottom:5px}
 #investmentAmount{text-align:left;/*padding-left:1rem;padding-right:2.2rem;*/height:2.4rem;font:normal 1.6rem/2.5rem "arial";box-sizing: border-box;width:100%;}
 .foot_bottom .input_c span{font:normal 1.6rem/2.5rem "微软雅黑";width:20%;position:absolute;right:0;top:0;background-color:#fff;}
 .foot_bottom .ft_l .money input.left-a{height:4rem;width:25%;}
-.foot_bottom .ft_l .money input.pos1{background:#fff url(../images/jian.png) no-repeat center center;background-size:3rem 3rem;}
-.foot_bottom .ft_l .money input.pos2{background:#fff url(../images/jia.png) no-repeat center center;background-size:3rem 3rem;}
+.foot_bottom .ft_l .money input.pos1{background:#fff url(jian.png) no-repeat center center;background-size:3rem 3rem;}
+.foot_bottom .ft_l .money input.pos2{background:#fff url(jia.png) no-repeat center center;background-size:3rem 3rem;}
 .foot_bottom .ft_r{width:37%;}
 
 .foot_box{position:fixed; width:100%; background:#f4f4f4; left:0; bottom:0; box-sizing:border-box; z-index:10;}

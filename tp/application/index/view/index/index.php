@@ -53,13 +53,13 @@
     <?php }?>
     <!--end-->
   </div>
-  <div class="mx10 pb10"> <a href="#" class="index-more"><i>查看全部项目</i></a> </div>
+  <div class="mx10 pb10"> <a href="{:url('product/index')}" class="index-more"><i>查看全部项目</i></a> </div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> 
   <a href="javascript:void(0)" class="nav_on" id="jx"><span></span>首页</a> 
   <a href="{:url('product/index')}" id="lc" class=""><span></span>理财</a> 
-  <a href="{:url('index/index')}" id="jk" class=""><span></span>借款</a> 
+  <a href="{:url('usemoney/index')}" id="jk" class=""><span></span>借款</a> 
   <a href="{:url('user/index')}" id="cf" class=""><span></span>我的账户</a> </nav><!--合作机构-->
 <div id="allmenu" style="display:none;">
   <div class="pt45" style="margin-top: 0px;">

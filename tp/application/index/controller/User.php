@@ -10,8 +10,7 @@ class User extends Controller
     public function index() {
         $user=new Users;
         $res=$user->getuserinfo(1);
-        // echo "<pre>";
-        // print_r($res);die;
+    
         return $this->fetch("index",['user'=>$res]);
     }
 

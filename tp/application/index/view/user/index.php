@@ -15,12 +15,19 @@
 </section>
 <!-- 中间内容 --> 
 <div class="summary">
-  <div class="head"><?php if (empty($user['info_img'])) {?>
-    <img id="photoImage" src="__static__images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;">
+  <div class="head">
+    <?php if (empty($user['info_img'])) {?>
+          <img id="photoImage" src="__static__images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;">
     <?php }else{?>
-    <img id="photoImage" src="__static__<?=$user['info_img']?>" alt="" style="width:80px;height:80px;z-index:0;">
+          <img id="photoImage" src="__static__<?=$user['info_img']?>" alt="" style="width:80px;height:80px;z-index:0;">
     <?php }?> 
-  <span class="username"><?php if (empty($user['user_name'])) {echo $user['user_tel'];}else{  echo $user['user_name'];}?></span>
+    <span class="username">
+          <?php if (empty($user['user_name'])) {
+            echo $user['user_tel'];
+          }else{  
+            echo $user['user_name'];
+          }?>
+    </span>
     <div class="headamount">
       <div class="p-amount"> <i>0.00 </i><br>
         累计收益（元） </div>

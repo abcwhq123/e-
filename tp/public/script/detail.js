@@ -17,8 +17,10 @@ $('#submit').on('click',function(){
 	if (amount>max) {
 		$("#investmentAmount").val(max)
 		amount=$("#investmentAmount").val();
+		$("#moneys").val(max)
 		return false;	
 	}else{	
+		
 		return true;
 	}	
 	

@@ -71,6 +71,8 @@ class Product extends Controller
 		$money=input('money');
 		$products=new products;
 		$data=$products->getmore($pid,$money);
+		// echo "<pre>";
+		// print_r($pid);die;
 		echo json_encode($data);
 	}
 	public function getinfo(){

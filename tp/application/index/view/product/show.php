@@ -159,7 +159,7 @@
       <div class="c-con">
 <h2>阳光五维指数</h2>
 <div class="wwzs">
-<input type="hidden" value="<?=$product['product_id']?>" id="pid">
+
   <div class="wwzs_con fl"><p>人员基本情况：10.0<br>担保信息和其他信息：9.0<br>
   征信报告和银行对账单：14.0<br>资金用途及还款来源：23.0<br>资金抵押情况：36.0</p></div>
 
@@ -285,6 +285,8 @@
          </div>
          <div class="ft_r fr">
          <form action="{:url('product/order')}" method="post">
+         <input type="hidden" value="<?=$product['product_id']?>" name="pid" id="pid">
+         <input type="hidden" value="0" name="true_money" id="moneys">
         <input id="submit" type="submit" value="立即购买" class="btn btn_orange w_10">
          </form>
          </div>       
@@ -337,6 +339,9 @@
           if (money>max) {
             $("#investmentAmount").val(max)
             money=$("#investmentAmount").val();
+            $("#moneys").val(max)
+          }else{
+              $("#moneys").val(money)
           }
           $.ajax({
               url:"{:url('product/getmoney')}",
@@ -346,11 +351,12 @@
                 money:money
               },
               dataType:"json",
-              success:function(e){
+              success:function(e){  
+                console.log(e)              
                  var str='<tr><th align="left" width="32%" style="padding-left:10px;">计划还款时间<span class="tbline" style="margin-top:15px;"></span></th><th align="center" width="20%">类型<span class="tbline" style="margin-top:15px;"></span></th><th align="right" width="38%" style="padding-right:10px;">还款金额(元)</th></tr>';
                  $.each(e,function(i, n){
                       str+=' <tr><td align="left" width="32%" style="padding-left:10px;">'+n.time+'<span class="tbline"></span> </td>';
-                      str+='<td width="20%" align="center"'+n.types+'<span class="tbline"></span> </td>';
+                      str+='<td width="20%" align="center">'+n.types+'<span class="tbline"></span> </td>';
                       str+='<td align="right" width="38%" style="padding-right:10px; color:#0caffe;">'+n.money+'<em class="whuan">未还</em> </td></tr>';
                  })
                  $("#bodys").html(str);

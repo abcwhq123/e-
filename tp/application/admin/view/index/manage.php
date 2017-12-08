@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>管理后台</title>
     <link href="__admin__css/web/bootstrap.min.css" rel="stylesheet">
+    <link href="__admin__css/web/laydate.css" rel="stylesheet">
+    <link href="__admin__css/web/default/laydate.css" rel="stylesheet">
     <link href="__admin__font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="__admin__css/web/style.css?ver=20170401" rel="stylesheet"></head>
 
@@ -18,18 +20,15 @@
                 <li class="nav-header">
                     <div class="profile-element text-center">
                         <img alt="image" class="img-circle" src="/images/web/logo.png" />
-                        <p class="text-muted">07c</p>
+                        <p class="text-muted">08b</p>
                     </div>
                     <div class="logo-element">
                         <img alt="image" class="img-circle" src="/images/web/logo.png" />
                     </div>
                 </li>
                 <li class="dashboard">
-                    <a href="/web/dashboard/index"><i class="fa fa-dashboard fa-lg"></i>
+                    <a href="{:url('Index/index')}"><i class="fa fa-dashboard fa-lg"></i>
                         <span class="nav-label">仪表盘</span></a>
-                </li>
-                <li class="account">
-                    <a href="{:url('index/product')}"> <img src="__admin__images/edit.png" width="20" height="20"><i ></i> <span class="nav-label">产品录入</span></a>
                 </li>
                 <li class="account">
                     <a href="{:url('index/manage')}"><i class="fa fa-user fa-lg"></i> <span class="nav-label">产品管理</span></a>
@@ -101,12 +100,6 @@
                         <li  class="current"  >
                             <a href="/web/book/index">产品列表</a>
                         </li>
-<!--                        <li  >-->
-<!--                            <a href="/web/book/cat">分类列表</a>-->
-<!--                        </li>-->
-<!--                        <li  >-->
-<!--                            <a href="/web/book/images">图片资源</a>-->
-<!--                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -114,41 +107,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <form class="form-inline wrap_search">
-                    <div class="row  m-t p-w-m">
-                        <div class="form-group">
-                            <select name="status" class="form-control inline">
-                                <option value="-1">请选择状态</option>
-                                <option value="1"  >正常</option>
-                                <option value="0"  >已删除</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="cat_id" class="form-control inline">
-                                <option value="0">请选择分类</option>
-                                <option value="2"  >互联网</option>
-                                <option value="1"  >政治类</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" name="mix_kw" placeholder="请输入关键字" class="form-control" value="">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn  btn-primary search">
-                                <i class="fa fa-search"></i>搜索
-                            </button>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
                     <hr/>
                     <div class="row">
                         <div class="col-lg-12">
-                            <a class="btn btn-w-m btn-outline btn-primary pull-right" href="">
+                            <a class="btn btn-w-m btn-outline btn-primary pull-right" href="{:url('Index/product')}">
                                 <i class="fa fa-plus"></i>产品录入
                             </a>
                         </div>
                     </div>
-
                 </form>
                 <table class="table table-bordered m-t">
                     <thead>
@@ -156,15 +122,14 @@
                         <th>产品ID</th>
                         <th>产品名称</th>
                         <th>产品类型</th>
-                        <th>产品期限</th>
                         <th>年化率</th>
                         <th>锁定期</th>
                         <th>产品编码</th>
                         <th>合作机构</th>
                         <th>产品金额</th>
                         <th>审核状态</th>
-                        <th>已筹资金</th>
-                        <th>所需金额</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
                         <th>产品来源</th>
                         <th>操作</th>
                     </tr>
@@ -172,28 +137,59 @@
 
                     {volist name="arr" id="v"}
                     <tr align="center">
-                        <td>{$v.product_id}</td>
+                        <td id="{$v.product_id}">{$v.product_id}</td>
                         <td>{$v.product_name}</td>
-                        <td>{$v.product_type}</td>
-                        <td>{$v.product_time}</td>
+                        <td>
+                            <?php
+                            switch($v['product_type']){
+                                   case "1";echo"三个月" ;
+                                    break;
+                                   case "2";echo"六个月" ;
+                                    break;
+                                   case "3";echo"一年" ;
+                                    break;
+                                   case "4";echo"一年以上" ;
+                                    break;
+                            }
+                            ?>
+                        </td>
                         <td>{$v.product_rate}</td>
                         <td>{$v.product_lock}</td>
                         <td>{$v.product_cade}</td>
                         <td>{$v.product_mechanism }</td>
                         <td>{$v.product_money}</td>
-                        <td>{$v.product_status}</td>
-                        <td>{$v.product_money}</td>
-                        <td>{$v.product_need_money}</td>
-                        <td>{$v.product_city}</td>
-                        <td><a href="delete?id={$v.product_id}">删除</a></td>
+                        <td>
+                            待审核
+                        </td>
+                        <td>{$v.start_time|date="Y-m-d H:i:s",###} </td>
+                        <td>{$v.end_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            <?php
+                            switch($v['product_city']){
+                                case "1";echo "北京";
+                                    break;
+                                case "2";echo "上海";
+                                    break;
+                                case "3";echo "广州";
+                                    break;
+                                case "4";echo "深圳";
+                                    break;
+                            }
+                            ?>
+                        </td>
+                        <td>
+<!--                            <a href="delete?id={$v.product_id}">删除</a>-->
+                            <select class="chose">
+                                <option value="0">请选择状态</option>
+                                <option value="1">通过</option>
+                                <option value="2">未通过</option>
+                            </select>
+                        </td>
                     </tr>
                     {/volist}
                     <tr>
 
                     </tr>
-
-
-
                 </table>
                 <div class="row">
                     <div class="col-lg-12">
@@ -210,3 +206,24 @@
 </div>
 </body>
 </html>
+<script src="http://www.eight_admin.com/plugins/jquery-2.1.1.js"></script>
+<script type="text/javascript">
+   $(function(){
+       $(".chose").change(function(){
+           var status=$(this).val();
+           var id=$(this).parent().parent().find("td").html();
+           $.ajax({
+               type:"post",
+               url:"{:url('Index/status')}",
+               data:{status:status,id:id},
+               success:function(msg){
+                  if(msg==1){
+                      window.location.href=window.location.href;
+                  }else{
+                      alert("审核失败");
+                  }
+               }
+           })
+       })
+   })
+</script>
